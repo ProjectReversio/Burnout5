@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "types.hpp"
-#include "BrnGameModule.hpp"
+#include "GameSource/Game/BrnGameModule.hpp"
 
 int main(int argc, const char** argv)
 {

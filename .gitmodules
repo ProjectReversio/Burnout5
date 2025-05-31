@@ -1,0 +1,3 @@
+[submodule "vendor/EAThread"]
+	path = vendor/EAThread
+	url = https://github.com/ProjectReversio/EAThread

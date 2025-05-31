@@ -5,8 +5,24 @@ target_sources(${PROJECT_NAME}
     PRIVATE
         main.cpp
         BrnGameModule.cpp
+        GameShared/GameClasses/Module/CgsModule.cpp
+        GameShared/GameClasses/Module/CgsDataBuffer.cpp
+        GameShared/GameClasses/Module/CgsDataStructure.cpp
+        GameShared/GameClasses/Module/CgsModuleSingleBuffered.cpp
         
     PUBLIC
         types.hpp
         BrnGameModule.hpp
+        GameShared/GameClasses/Module/CgsModule.h
+        GameShared/GameClasses/Module/CgsDataBuffer.h
+        GameShared/GameClasses/Module/CgsDataStructure.h
+        GameShared/GameClasses/Module/CgsModuleSingleBuffered.h
+        GameShared/GameClasses/Containers/CgsFlagSet.h
+)
+
+target_link_libraries(${PROJECT_NAME} EAThread)
+
+target_include_directories(${PROJECT_NAME}
+    PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}
 )
