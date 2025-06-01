@@ -11,17 +11,18 @@ namespace CgsContainers
         T muFlags;
 
     public:
-        void Clear();
+        // TODO: All function implementations are guessed as they were inlined in the decompile
+        void Clear() { muFlags = 0; }
 
-        const bool IsBitSet(u32 num) const;
-        void SetBit(u32 num);
-        void UnSetBit(u32 num);
-        T GetBit(u32 num) const;
-        void SetBitTo(u32 num, bool value);
-        bool IsZero() const;
-        bool IsFull() const;
-        bool IsFullUpTo(u32 num) const;
+        const bool IsBitSet(u32 num) const { return (muFlags & num) != 0; }
+        void SetBit(u32 num) { muFlags |= num; }
+        void UnSetBit(u32 num) { muFlags &= ~num; }
+        T GetBit(u32 num) const { return (muFlags & num); }
+        void SetBitTo(u32 num, bool value) { if (value) SetBit(num); else UnSetBit(num); }
+        bool IsZero() const { return muFlags == 0; }
+        bool IsFull() const { return muFlags == ~T(0); }
+        bool IsFullUpTo(u32 num) const { return (muFlags & num) == num; }
 
-        T& GetFlags();
+        T& GetFlags() { return muFlags; }
     };
 }

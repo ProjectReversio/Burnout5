@@ -4,7 +4,7 @@ add_executable(${PROJECT_NAME} "")
 target_sources(${PROJECT_NAME}
     PRIVATE
         main.cpp
-        BrnGameModule.cpp
+        GameSource/Game/BrnGameModule.cpp
         GameShared/GameClasses/Module/CgsModule.cpp
         GameShared/GameClasses/Module/CgsDataBuffer.cpp
         GameShared/GameClasses/Module/CgsDataStructure.cpp
@@ -12,7 +12,7 @@ target_sources(${PROJECT_NAME}
         
     PUBLIC
         types.hpp
-        BrnGameModule.hpp
+        GameSource/Game/BrnGameModule.hpp
         GameShared/GameClasses/Module/CgsModule.h
         GameShared/GameClasses/Module/CgsDataBuffer.h
         GameShared/GameClasses/Module/CgsDataStructure.h

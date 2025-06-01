@@ -20,13 +20,13 @@ namespace CgsModule
 
     public:
         void Construct();
-        void Prepare();
-        void Release();
+        bool Prepare();
+        bool Release();
         void Destruct();
         void SetDataStructure(DataStructure* pDataStructure);
-        DataStructure* GetDataStructure() const;
+        DataStructure* GetDataStructure() const { return mpDataStructure; }
 
-        void SetMultiThreaded(bool isMultiThreaded);
+        void SetMultiThreaded(bool isMultiThreaded) { mbMultiThreaded = isMultiThreaded; }
 
         void LockForWrite();
         void UnlockForWrite();
