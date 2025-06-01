@@ -36,6 +36,7 @@ namespace CgsModule
         DataStructure* mpInputStructure;
         DataStructure* mpOutputStructure;
 
+    public:
         void Construct() override;
         bool Prepare() override;
         bool Release() override;

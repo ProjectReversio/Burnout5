@@ -13,10 +13,12 @@ target_sources(${PROJECT_NAME}
     PUBLIC
         types.hpp
         GameSource/Game/BrnGameModule.hpp
+        GameShared/GameClasses/Core/CgsAssert.h
         GameShared/GameClasses/Module/CgsModule.h
         GameShared/GameClasses/Module/CgsDataBuffer.h
         GameShared/GameClasses/Module/CgsDataStructure.h
         GameShared/GameClasses/Module/CgsModuleSingleBuffered.h
+        GameShared/GameClasses/Module/CgsModuleSingleBufferedTemplate.h
         GameShared/GameClasses/Containers/CgsFlagSet.h
 )
 
