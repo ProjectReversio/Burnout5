@@ -16,46 +16,127 @@ void CgsModule::ModuleSingleBuffered::Construct()
 
 bool CgsModule::ModuleSingleBuffered::Prepare()
 {
-    // TODO: Implement CgsModule::ModuleSingleBuffered::Prepare
-    /*switch (this->mePrepareStage)
+    switch (mePrepareStage)
     {
         case EManagerPrepareStage::E_MANAGERPREPARESTAGE_START:
-            break;
+            mePrepareStage = EManagerPrepareStage::E_MANAGERPREPARESTAGE_START;
+            mpInputStructure  = nullptr;
+            mpOutputStructure = nullptr;
         case EManagerPrepareStage::E_MANAGERPREPARESTAGE_INPUT:
-            break;
+            mePrepareStage = EManagerPrepareStage::E_MANAGERPREPARESTAGE_INPUT;
+            if (!mbIsNewModule)
+            {
+                mInputBuffer.Prepare();
+            }
         case EManagerPrepareStage::E_MANAGERPREPARESTAGE_ALLOCINPUT:
-            break;
+            mePrepareStage = EManagerPrepareStage::E_MANAGERPREPARESTAGE_ALLOCOUTPUT;
+            if (!mbIsNewModule)
+            {
+                CgsModule::DataStructure *lpDataStructure = CreateInputDataStructure();
+                if (!lpDataStructure)
+                    return false;
+                mInputBuffer.SetDataStructure(lpDataStructure);
+            }
         case EManagerPrepareStage::E_MANAGERPREPARESTAGE_OUTPUT:
-            break;
+            mePrepareStage = EManagerPrepareStage::E_MANAGERPREPARESTAGE_OUTPUT;
+            if (!mbIsNewModule)
+            {
+                mOutputBuffer.Prepare();
+            }
         case EManagerPrepareStage::E_MANAGERPREPARESTAGE_ALLOCOUTPUT:
-            break;
+            mePrepareStage = EManagerPrepareStage::E_MANAGERPREPARESTAGE_ALLOCOUTPUT;
+            if (!mbIsNewModule)
+            {
+                CgsModule::DataStructure * dsOut = CreateOutputDataStructure();
+                if (!dsOut)
+                    return false;
+                mOutputBuffer.SetDataStructure(dsOut);
+            }
         case EManagerPrepareStage::E_MANAGERPREPARESTAGE_DATASTRUCTURES:
-            break;
+            mePrepareStage = EManagerPrepareStage::E_MANAGERPREPARESTAGE_DATASTRUCTURES;
+            if (!mbIsNewModule)
+            {
+                if (!mpInputStructure)
+                    LockInputForWrite();
+
+                if (!mpOutputStructure)
+                    LockOutputForWrite();
+
+                if (!PrepareDataStructures(mpInputStructure, mpOutputStructure))
+                    return false;
+
+                UnlockInputForWrite();
+                UnlockOutputForWrite();
+            }
         case EManagerPrepareStage::E_MANAGERPREPARESTAGE_DONE:
-            break;
-    }*/
+            this->meReleaseStage = EManagerReleaseStage::E_MANAGERRELEASESTAGE_START;
+            this->mePrepareStage = EManagerPrepareStage::E_MANAGERPREPARESTAGE_DONE;
+            return true;
+        default:
+            return false;
+    }
 }
 
 bool CgsModule::ModuleSingleBuffered::Release()
 {
-    // TODO: Implement CgsModule::ModuleSingleBuffered::Release
-    /*switch (this->meReleaseStage)
+    switch (meReleaseStage)
     {
         case EManagerReleaseStage::E_MANAGERRELEASESTAGE_START:
-            break;
+            meReleaseStage = EManagerReleaseStage::E_MANAGERRELEASESTAGE_START;
+            mpInputStructure  = nullptr;
+            mpOutputStructure = nullptr;
         case EManagerReleaseStage::E_MANAGERRELEASESTAGE_DATASTRUCTURES:
-            break;
-        case EManagerReleaseStage::E_MANAGERRELEASESTAGE_FREEOUTPUT:
-            break;
-        case EManagerReleaseStage::E_MANAGERRELEASESTAGE_OUTPUT:
-            break;
+            meReleaseStage = EManagerReleaseStage::E_MANAGERRELEASESTAGE_DATASTRUCTURES;
+            if (!mbIsNewModule)
+            {
+                if (!mpInputStructure)
+                    LockInputForWrite();
+                if (!mpOutputStructure)
+                    LockOutputForWrite();
+
+                if (!ReleaseDataStructures(mpInputStructure, mpOutputStructure))
+                    return false;
+
+                UnlockInputForWrite();
+                UnlockOutputForWrite();
+            }
         case EManagerReleaseStage::E_MANAGERRELEASESTAGE_FREEINPUT:
-            break;
+            meReleaseStage = EManagerReleaseStage::E_MANAGERRELEASESTAGE_FREEINPUT;
+            if (!mbIsNewModule)
+            {
+                CgsModule::DataStructure* lpDataStructure = mInputBuffer.GetDataStructure();
+                if (!DestroyInputDataStructure(lpDataStructure))
+                    return false;
+                mInputBuffer.SetDataStructure(nullptr);
+            }
         case EManagerReleaseStage::E_MANAGERRELEASESTAGE_INPUT:
-            break;
+            meReleaseStage = EManagerReleaseStage::E_MANAGERRELEASESTAGE_INPUT;
+            if (!mbIsNewModule)
+            {
+                mInputBuffer.Release();
+            }
+        case EManagerReleaseStage::E_MANAGERRELEASESTAGE_FREEOUTPUT:
+            meReleaseStage = EManagerReleaseStage::E_MANAGERRELEASESTAGE_FREEOUTPUT;
+            if (!mbIsNewModule)
+            {
+                CgsModule::DataStructure *lpDataStructure = mOutputBuffer.GetDataStructure();
+                if (!DestroyOutputDataStructure(lpDataStructure))
+                    return false;
+                mOutputBuffer.SetDataStructure(nullptr);
+            }
+        case EManagerReleaseStage::E_MANAGERRELEASESTAGE_OUTPUT:
+            meReleaseStage = EManagerReleaseStage::E_MANAGERRELEASESTAGE_OUTPUT;
+            if (!mbIsNewModule)
+            {
+                mOutputBuffer.Release();
+            }
         case EManagerReleaseStage::E_MANAGERRELEASESTAGE_DONE:
-            break;
-    }*/
+            mePrepareStage = EManagerPrepareStage::E_MANAGERPREPARESTAGE_START;
+            meReleaseStage = EManagerReleaseStage::E_MANAGERRELEASESTAGE_DONE;
+            return true;
+        default:
+            return false;
+    }
 }
 
 void CgsModule::ModuleSingleBuffered::Destruct()
