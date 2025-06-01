@@ -72,7 +72,7 @@ bool CgsModule::DataBuffer::IsBufferLocked()
                mMutex.GetLockCount(EA::Thread::RWMutex::kLockTypeWrite) > 0;
     }
 
-    return mxStatusFlags.IsFullUpTo(3); // Check if either read or write flag is set
+    return mxStatusFlags.IsBitSet(3); // Check if either read or write flag is set
 }
 
 
