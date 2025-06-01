@@ -7,7 +7,7 @@ namespace CgsModule
 {
     class ModuleSingleBuffered : public Module
     {
-        enum EManagerPrepareStage {
+        enum class EManagerPrepareStage {
             E_MANAGERPREPARESTAGE_START = 0,
             E_MANAGERPREPARESTAGE_INPUT = 1,
             E_MANAGERPREPARESTAGE_ALLOCINPUT = 2,
@@ -17,7 +17,7 @@ namespace CgsModule
             E_MANAGERPREPARESTAGE_DONE = 6,
         };
 
-        enum EManagerReleaseStage {
+        enum class EManagerReleaseStage {
             E_MANAGERRELEASESTAGE_START = 0,
             E_MANAGERRELEASESTAGE_DATASTRUCTURES = 1,
             E_MANAGERRELEASESTAGE_FREEOUTPUT = 2,
@@ -43,7 +43,7 @@ namespace CgsModule
         void Update() override;
         void SetMultiThreaded(bool isMultiThreaded) override;
 
-        DataStructure* GetOutputStructure() const;
+        DataStructure* GetOutputStructure() const { return mpOutputStructure; }
 
         void LockForInput() override;
         void UnlockForInput() override;
@@ -64,7 +64,7 @@ namespace CgsModule
         DataStructure* LockOutputForWrite();
         void UnlockOutputForWrite();
 
-        DataStructure* GetInputStructure() const;
+        DataStructure* GetInputStructure() const { return mpInputStructure; }
 
     private:
         DataStructure* LockInputForWrite();
