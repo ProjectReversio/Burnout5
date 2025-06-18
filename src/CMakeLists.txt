@@ -18,7 +18,7 @@ target_sources(${PROJECT_NAME}
     PUBLIC
         types.hpp
         GameShared/GameClasses/System/CgsHardwareInit.h
-        GameSource/Game/BrnGameModule.hpp
+        GameSource/Game/BrnGameModule.h
         GameShared/GameClasses/Core/CgsAssert.h
         GameShared/GameClasses/Module/CgsModule.h
         GameShared/GameClasses/Module/CgsDataBuffer.h

@@ -1,4 +1,4 @@
-#include "BrnGameModule.hpp"
+#include "BrnGameModule.h"
 
 BrnGameModule::BrnGameModule()
 {
