@@ -8,26 +8,36 @@ endif()
 target_sources(${PROJECT_NAME}
     PRIVATE
         GameSource/Game/BrnGameModule.cpp
+        GameSource/Game/BrnGameModuleIO.cpp
         GameSource/Main/BrnMain.cpp
         GameShared/GameClasses/Module/CgsModule.cpp
         GameShared/GameClasses/Module/CgsDataBuffer.cpp
         GameShared/GameClasses/Module/CgsDataStructure.cpp
         GameShared/GameClasses/Module/CgsModuleSingleBuffered.cpp
+        GameShared/GameClasses/Module/CgsIOBuffer.cpp
         GameShared/GameClasses/Core/CgsStringUtils.cpp
         
     PUBLIC
         types.hpp
+        cmn/rw/core/base/ostypes.h
         GameShared/GameClasses/System/CgsHardwareInit.h
         GameSource/Game/BrnGameModule.h
+        GameSource/Game/BrnGameModuleIO.h
+        GameSource/Resource/SharedIO/BrnGameDataRequestQueue.h
         GameShared/GameClasses/Core/CgsAssert.h
         GameShared/GameClasses/Module/CgsModule.h
         GameShared/GameClasses/Module/CgsDataBuffer.h
         GameShared/GameClasses/Module/CgsDataStructure.h
         GameShared/GameClasses/Module/CgsModuleSingleBuffered.h
         GameShared/GameClasses/Module/CgsModuleSingleBufferedTemplate.h
+        GameShared/GameClasses/Module/CgsIOBuffer.h
+        GameShared/GameClasses/Module/CgsVariableEventQueue.h
+        GameShared/GameClasses/System/Resource/CgsResourceRequestQueue.h
+        GameShared/GameClasses/System/Threads/CgsThreadLayout.h
         GameShared/GameClasses/Containers/CgsFlagSet.h
         GameShared/GameClasses/Core/CgsAssert.h
         GameShared/GameClasses/Core/CgsStringUtils.h
+        GameShared/GameClasses/Development/AssertSystem/CgsAssertManager.h
 )
 
 if (WIN32)

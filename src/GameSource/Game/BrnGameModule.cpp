@@ -1,11 +1,11 @@
 #include "BrnGameModule.h"
 
-BrnGameModule::BrnGameModule()
+BrnGame::BrnGameModule::BrnGameModule()
 {
 
 }
 
-BrnGameModule::~BrnGameModule()
+BrnGame::BrnGameModule::~BrnGameModule()
 {
 
 }

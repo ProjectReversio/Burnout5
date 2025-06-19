@@ -4,7 +4,11 @@
 
 #include <GameShared/GameClasses/System/CgsHardwareInit.h>
 
+#include "GameSource/Game/BrnGameModule.h"
+#include "GameSource/Game/BrnGameModuleIO.h"
 #include "pc/gcm/renderengine/device.h"
+
+BrnGame::BrnGameModule* gpBurnoutGame;
 
 void LoadConfig()
 {
@@ -21,6 +25,15 @@ void EnginePrepare()
     // TODO: Implement EnginePrepare
 
     renderengine::Device::Start();
+
+    // TODO: Implement EnginePrepare
+
+    // TODO: Memory stuff
+    // TODO: Construct BrnGame::BrnGameModule
+    /*if (memResource)
+        gpBurnoutGame = new BrnGame::BrnGameModule(memResource);
+    else
+        gpBurnoutGame = nullptr;*/
 
     // TODO: Implement EnginePrepare
 }
