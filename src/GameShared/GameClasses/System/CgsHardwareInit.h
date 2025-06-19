@@ -27,6 +27,8 @@ namespace CgsSystem
 
         static void ReleaseHardware();
 
+        static void UpdateHardware();
+
         static bool IsAlreadyRunning();
 
         static bool IsHardwareWantingToShutdown() { return mbHardwareRequestsShutdown; }
@@ -55,8 +57,10 @@ namespace CgsSystem
 
         //static CgsMemory::HeapMallocCoreAllocator mJobManagerAllocator; // TODO: Implement HardwareInit
 
+    public:
         static volatile bool mbHardwareRequestsShutdown;
 
+    private:
         static bool mbIsGuideOnScreen;
 
         static bool mbHasDetectedAutomaticTestingFile;

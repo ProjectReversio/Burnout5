@@ -9,9 +9,21 @@ namespace BrnGame
     {
     public:
         explicit BrnGameModule();
-        ~BrnGameModule();
+        ~BrnGameModule() override;
+
+        bool UpdateThread() override;
+        void DispatchThread() override;
+        void ResourceUpdateThread(EA::Thread::Mutex *mutex) override;
+        void OnStartOfUpdateFrame() override;
+        void OnEndOfUpdateFrame() override;
+        void OnCompletionOfVsyncWait() override;
+        void RenderAssert(const CgsDev::Assert::AssertData *assertData) override;
+
+
+        bool HasGameTerminated() const { return mbHasGameTerminated; }
 
     private:
+        bool mbHasGameTerminated = false;
 
     };
 }

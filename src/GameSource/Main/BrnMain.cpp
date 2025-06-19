@@ -29,24 +29,49 @@ void EnginePrepare()
     // TODO: Implement EnginePrepare
 
     // TODO: Memory stuff
-    // TODO: Construct BrnGame::BrnGameModule
+    // TODO: Construct BrnGame::BrnGameModule with memory resource
     /*if (memResource)
         gpBurnoutGame = new BrnGame::BrnGameModule(memResource);
     else
         gpBurnoutGame = nullptr;*/
 
+    // TEMP: For now, just create a new instance without memory resource
+    gpBurnoutGame = new BrnGame::BrnGameModule();
+
     // TODO: Implement EnginePrepare
+
+    gpBurnoutGame->Construct();
+
+    // TODO: Implement EnginePrepare
+
+    while (!gpBurnoutGame->Prepare())
+    {
+        if (gpBurnoutGame->HasGameTerminated())
+            break;
+
+        CgsSystem::HardwareInit::UpdateHardware();
+    }
 }
 
 void EngineUpdate()
 {
-    // TODO: Implement EngineUpdate
+    while (!gpBurnoutGame->HasGameTerminated())
+    {
+        CgsSystem::HardwareInit::UpdateHardware();
+
+        // TODO: Implement EngineUpdate
+    }
 }
 
 void EngineRelease()
 {
     SaveConfig();
     // TODO: Implement EngineRelease
+
+    while (!gpBurnoutGame->Release())
+    {
+        CgsSystem::HardwareInit::UpdateHardware();
+    }
 }
 
 void GameRelease()

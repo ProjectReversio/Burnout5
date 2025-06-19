@@ -93,6 +93,19 @@ static bool RegisterDeviceNotif(HDEVNOTIFY* notify)
 static LRESULT CALLBACK windowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     // TODO: Implement windowProc
+
+    switch (uMsg)
+    {
+        case WM_DESTROY:
+            PostQuitMessage(0);
+            break;
+        case WM_CLOSE:
+            CgsSystem::HardwareInit::mbHardwareRequestsShutdown = true;
+            return 0;
+    }
+
+    // TODO: Implement windowProc
+
     return DefWindowProc(hwnd, uMsg, wParam, lParam);
 }
 
@@ -301,6 +314,27 @@ void CgsSystem::HardwareInit::ReleaseHardware()
 
     timeEndPeriod(1u);
     CoUninitialize();
+}
+
+void CgsSystem::HardwareInit::UpdateHardware()
+{
+    // TODO: Implement CgsSystem::HardwareInit::UpdateHardware
+    // TODO: gHardwareInit.unkArrayCount = 0;
+
+    MSG msg = {};
+
+    while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
+    {
+        if (msg.message == WM_QUIT)
+            mbHardwareRequestsShutdown = true;
+
+        TranslateMessage(&msg);
+        DispatchMessage(&msg);
+    }
+
+    // TEMP: Check if hardware wants to shutdown, normally handled in BrnGameModule
+    if (CgsSystem::HardwareInit::mbHardwareRequestsShutdown)
+        exit(0);
 }
 
 bool CgsSystem::HardwareInit::IsAlreadyRunning()
